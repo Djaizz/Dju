@@ -3,7 +3,7 @@ from ruamel import yaml
 from setuptools import find_packages, setup
 
 
-_PACKAGE_NAMESPACE_NAME = 'django_utils'
+_PACKAGE_NAMESPACE_NAME = 'django_util'
 
 _METADATA_FILE_NAME = 'metadata.yml'
 
