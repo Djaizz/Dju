@@ -1,2 +1,1 @@
 # Django-Utils
-Django Utils
