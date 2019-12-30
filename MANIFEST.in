@@ -1,0 +1,3 @@
+include requirements.txt
+include django_utils/metadata.yml
+recursive-exclude *.pyc
