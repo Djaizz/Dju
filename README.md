@@ -1,1 +1,3 @@
-# Django-Utils
+# Django-Util
+
+Django Utilities

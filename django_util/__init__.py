@@ -1,1 +1,1 @@
-default_app_config = 'django_utils.apps.UtilConfig'
+default_app_config = 'django_util.apps.UtilConfig'
