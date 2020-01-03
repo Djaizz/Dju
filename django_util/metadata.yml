@@ -2,5 +2,5 @@ PACKAGE: Django-Util
 AUTHOR: TheVinhLuong102
 AUTHOR_EMAIL: MBALearnsToCode@UChicago.edu
 DESCRIPTION: "Django Utililies"
-VERSION: 0.0.2
+VERSION: 0.0.3
 URL: https://github.com/TheVinhLuong102/Django-Util
