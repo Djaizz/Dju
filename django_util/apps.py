@@ -1,3 +1,6 @@
+__all__ = 'UtilConfig',
+
+
 from django.apps import AppConfig
 
 import os
