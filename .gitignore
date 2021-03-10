@@ -129,6 +129,5 @@ dmypy.json
 .pyre/
 
 
-# IntelliJ IDEA
-.idea/
-*.iml
+# Visual Studio Code
+.vscode/

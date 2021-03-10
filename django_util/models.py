@@ -8,12 +8,11 @@ from django.db.models.base import Model
 from django.db.models.fields import \
     AutoField, BigAutoField, SmallAutoField, UUIDField, \
     DateField, DateTimeField
+from django.db.models.fields.json import JSONField
 
 from django.db.models.manager import Manager
 
-from django.contrib.postgres.fields import \
-    CICharField, \
-    JSONField
+from django.contrib.postgres.fields import CICharField
 
 from django.core.serializers.json import DjangoJSONEncoder
 
