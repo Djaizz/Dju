@@ -7,10 +7,6 @@ __all__ = \
 import re
 
 
-# Django App Config
-default_app_config = 'django_util.apps.UtilConfig'
-
-
 MAX_CHAR_FLD_LEN = 255
 
 
