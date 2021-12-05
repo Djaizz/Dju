@@ -439,18 +439,3 @@ class _ModelWithPostgreSQLCICharPKAndJSONValueMixInABC(_ModelWithAutoCompleteSea
         assert self.key
 
         super().save(*args, **kwargs)
-
-
-class _EnvVarABC(
-        _ModelWithCreatedAndUpdatedMixInABC,
-        _ModelWithPostgreSQLCICharPKAndJSONValueMixInABC,
-        _ModelWithObjectsManagerAndDefaultMetaOptionsMixInABC):
-    class Meta(
-            _ModelWithPostgreSQLCICharPKAndJSONValueMixInABC.Meta,
-            _ModelWithObjectsManagerAndDefaultMetaOptionsMixInABC.Meta):
-        abstract = True
-
-        default_related_name = 'env_vars'
-        
-        verbose_name = 'Environment Variable'
-        verbose_name_plural = 'Environment Variables'
