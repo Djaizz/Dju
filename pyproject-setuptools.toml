@@ -28,7 +28,6 @@ classifiers = [
   'Environment :: MacOS X',
   'Environment :: Win32 (MS Windows)',
   'Framework :: Django',
-  'Framework :: Django :: 3.2',
   'Framework :: Django :: 4.0',
   'Intended Audience :: Developers',
   'Operating System :: MacOS',
@@ -65,7 +64,7 @@ Documentation = 'https://Django-AI.GitHub.io/DjUtil'
 
 [project.dependencies]
 
-Django = '^3.2.9'
+Django = '^4.0'
 
 
 [build-system]
