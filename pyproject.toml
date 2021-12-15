@@ -15,9 +15,9 @@ maintainers = [
 
 readme = 'README.md'
 
-homepage = 'https://GitHub.com/Django-AI/DjUtil'
-repository = 'https://GitHub.com/Django-AI/DjUtil'
-documentation = 'https://Django-AI.GitHub.io/DjUtil'
+homepage = 'https://GitHub.com/Django-AI/Dj-Util'
+repository = 'https://GitHub.com/Django-AI/Dj-Util'
+documentation = 'https://Django-AI.GitHub.io/Dj-Util'
 
 keywords = [
   'Django',
@@ -82,7 +82,7 @@ Django-Model-Utils = '^4.2.0'
 
 
 [tool.poetry.urls]
-GitHub = 'https://GitHub.com/Django-AI/DjUtil'
+GitHub = 'https://GitHub.com/Django-AI/Dj-Util'
 
 
 [build-system]

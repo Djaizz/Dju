@@ -1,4 +1,4 @@
-"""DjUtil package."""
+"""Dj-Util package."""
 
 
 from importlib.metadata import version

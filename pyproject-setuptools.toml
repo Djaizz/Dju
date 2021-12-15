@@ -57,10 +57,10 @@ classifiers = [
 
 
 [project.urls]
-Homepage = 'https://GitHub.com/Django-AI/DjUtil'
-Repository = 'https://GitHub.com/Django-AI/DjUtil'
-GitHub = 'https://GitHub.com/Django-AI/DjUtil'
-Documentation = 'https://Django-AI.GitHub.io/DjUtil'
+Homepage = 'https://GitHub.com/Django-AI/Dj-Util'
+Repository = 'https://GitHub.com/Django-AI/Dj-Util'
+GitHub = 'https://GitHub.com/Django-AI/Dj-Util'
+Documentation = 'https://Django-AI.GitHub.io/Dj-Util'
 
 
 [project.dependencies]
