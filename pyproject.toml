@@ -78,6 +78,7 @@ Python = '^3.8'
 # ================
 Django = '^4.0'
 Django-Autocomplete-Light = '^3.9.0rc5'
+Django-Model-Utils = '^4.2.0'
 
 
 [tool.poetry.urls]
