@@ -1,4 +1,4 @@
-"""Autocomplete Utilities."""
+"""AutoComplete Utilities."""
 
 
 from functools import reduce
