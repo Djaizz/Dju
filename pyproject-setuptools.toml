@@ -1,5 +1,5 @@
 [project]
-name = 'DjUtil'
+name = 'Dj-Util'
 version = '0.0.0.dev0'
 
 description = 'Django Utilities'
