@@ -18,6 +18,7 @@ maintainers = [
 
 keywords = [
   'Django',
+
   'util',
   'utils',
   'utilities',
@@ -65,6 +66,7 @@ Documentation = 'https://Django-AI.GitHub.io/DjUtil'
 [project.dependencies]
 
 Django = '^4.0'
+Django-Autocomplete-Light = '^3.9.0rc5'
 
 
 [build-system]

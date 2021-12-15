@@ -21,6 +21,7 @@ documentation = 'https://Django-AI.GitHub.io/DjUtil'
 
 keywords = [
   'Django',
+
   'util',
   'utils',
   'utilities',
@@ -73,9 +74,10 @@ exclude = []
 Python = '^3.8'
 
 
-# Django
-# ======
+# Django & related
+# ================
 Django = '^4.0'
+Django-Autocomplete-Light = '^3.9.0rc5'
 
 
 [tool.poetry.urls]
