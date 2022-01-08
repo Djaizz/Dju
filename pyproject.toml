@@ -28,8 +28,7 @@ keywords = [
 ]
 
 classifiers = [
-  'Development Status :: 4 - Beta',
-  # 'Development Status :: 5 - Production/Stable',
+  'Development Status :: 5 - Production/Stable',
   # 'Development Status :: 6 - Mature',
   'Environment :: MacOS X',
   'Environment :: Win32 (MS Windows)',
@@ -74,10 +73,9 @@ exclude = []
 # ======
 Python = '^3.8'
 
-
 # Django & related
 # ================
-Django = '^4.0'
+Django = '^4.0.1'
 Django-Autocomplete-Light = '^3.9.0rc5'
 Django-Model-Utils = '^4.2.0'
 
@@ -89,11 +87,5 @@ GitHub = 'https://GitHub.com/Django-AI/Dj-Util'
 [build-system]
 requires = [
   'Poetry-Core >= 1.0.7',
-
-  # *** TEMP FIX for SetUpTools-related bug ***
-  # github.com/pypa/pip/issues/10743#issuecomment-998321115
-  # github.com/python-poetry/poetry/issues/3153#issuecomment-727196619
-  # github.com/python-poetry/poetry/issues/4915#issuecomment-999449889
-  'SetUpTools >= 60.1.0',
 ]
 build-backend = 'poetry.core.masonry.api'
