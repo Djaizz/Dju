@@ -22,7 +22,7 @@ from django.db.models.manager import Manager
 
 from model_utils.models import TimeStampedModel
 
-from .str import MAX_CHAR_FLD_LEN
+from .str import MAX_CHAR_FLD_LEN, snake_case
 
 if version_info >= (3, 9):
     from collections.abc import Sequence
@@ -35,14 +35,17 @@ __all__: Sequence[str] = (
     '_ModelWithObjectsManagerAndDefaultMetaOptionsABC',
     '_ModelWithIntPKABC', '_ModelWithBigIntPKABC', '_ModelWithSmallIntPKABC',
     '_ModelWithUUIDPKABC',
-    '_ModelWithNullableDateABC', '_ModelWithNonNullableDateABC',
+    '_ModelWithUniqueNameABC', '_ModelWithSnakeCaseUniqueNameABC',
+    '_ModelWithOptionalUniqueNameABC', '_ModelWithOptionalSnakeCaseUniqueNameABC',   # noqa: E501
+    '_ModelWithDateABC', '_ModelWithOptionalDateABC',
     '_ModelWithAutoCompleteSearchFieldsABC',
+    '_ModelWithUUIDPKAndOptionalUniqueNameABC',
     '_ModelWithUUIDPKAndOptionalUniqueNameAndTimestampsABC',
 )
 
 
 # postgresql.org/docs/devel/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS
-PGSQL_IDENTIFIER_MAX_LEN = 63
+PGSQL_IDENTIFIER_MAX_LEN: int = 63
 
 
 # Field options:
@@ -189,6 +192,9 @@ class _ModelWithObjectsManagerAndDefaultMetaOptionsABC(Model):
         # docs.djangoproject.com/en/dev/ref/models/options/#verbose-name-plural
         # verbose_name_plural: str  = '...'
 
+    def __str__(self) -> str:
+        return f'{type(self).__name__} #{self.pk}'
+
 
 class _ModelWithIntPKABC(_ModelWithObjectsManagerAndDefaultMetaOptionsABC):
     # docs.djangoproject.com/en/dev/topics/db/models/#automatic-primary-key-fields
@@ -314,20 +320,108 @@ class _ModelWithUUIDPKABC(_ModelWithObjectsManagerAndDefaultMetaOptionsABC):
 
         abstract = True
 
-    def __str__(self) -> str:
-        return f'{type(self).__name__} #{self.uuid}'
 
-
-class _ModelWithNullableDateABC(
+class _ModelWithUniqueNameABC(
         _ModelWithObjectsManagerAndDefaultMetaOptionsABC):
+    name: CharField = \
+        CharField(
+            verbose_name='Unique Name',
+            help_text='Unique Name',
+
+            max_length=MAX_CHAR_FLD_LEN,
+
+            null=False,
+            blank=False,
+            choices=None,
+            db_column=None,
+            db_index=True,
+            db_tablespace=None,
+            default=None,
+            editable=True,
+            # error_messages={},
+            primary_key=False,
+            unique=True,
+            unique_for_date=None,
+            unique_for_month=None,
+            unique_for_year=None,
+            # validators=()
+        )
+
+    class Meta(_ModelWithObjectsManagerAndDefaultMetaOptionsABC.Meta):
+        # pylint: disable=too-few-public-methods
+        """Metadata."""
+
+        abstract: bool = True
+
+        ordering: Sequence[str] = ('name',)
+
+    def __str__(self) -> str:
+        return f'{type(self).__name__} "{self.name}"'
+
+
+class _ModelWithSnakeCaseUniqueNameABC(_ModelWithUniqueNameABC):
+    def save(self, *args, **kwargs):
+        self.name: str = snake_case(self.name)
+        super().save(*args, **kwargs)
+
+
+class _ModelWithOptionalUniqueNameABC(
+        _ModelWithObjectsManagerAndDefaultMetaOptionsABC):
+    name: CharField = \
+        CharField(
+            verbose_name='(optional) Unique Name',
+            help_text='(optional) Unique Name',
+
+            max_length=MAX_CHAR_FLD_LEN,
+
+            null=True,
+            blank=True,
+            choices=None,
+            db_column=None,
+            db_index=True,
+            db_tablespace=None,
+            default=None,
+            editable=True,
+            # error_messages={},
+            primary_key=False,
+            unique=True,
+            unique_for_date=None,
+            unique_for_month=None,
+            unique_for_year=None,
+            # validators=()
+        )
+
+    class Meta(_ModelWithObjectsManagerAndDefaultMetaOptionsABC.Meta):
+        # pylint: disable=too-few-public-methods
+        """Metadata."""
+
+        abstract: bool = True
+
+        ordering: Sequence[str] = ('name',)
+
+    def __str__(self) -> str:
+        return (f'{type(self).__name__} "{self.name}"'
+                if self.name
+                else super().__str__())
+
+
+class _ModelWithOptionalSnakeCaseUniqueNameABC(
+        _ModelWithOptionalUniqueNameABC):
+    def save(self, *args, **kwargs):
+        if self.name:
+            self.name: str = snake_case(self.name)
+        super().save(*args, **kwargs)
+
+
+class _ModelWithDateABC(_ModelWithObjectsManagerAndDefaultMetaOptionsABC):
     # docs.djangoproject.com/en/dev/ref/models/fields/#datefield
     date: DateField = \
         DateField(
             verbose_name='Date',
             help_text='Date',
 
-            null=True,
-            blank=True,
+            null=False,
+            blank=False,
             choices=None,
             db_column=None,
             db_index=True,
@@ -352,7 +446,7 @@ class _ModelWithNullableDateABC(
         abstract = True
 
 
-class _ModelWithNonNullableDateABC(
+class _ModelWithOptionalDateABC(
         _ModelWithObjectsManagerAndDefaultMetaOptionsABC):
     # docs.djangoproject.com/en/dev/ref/models/fields/#datefield
     date: DateField = \
@@ -360,8 +454,8 @@ class _ModelWithNonNullableDateABC(
             verbose_name='Date',
             help_text='Date',
 
-            null=False,
-            blank=False,
+            null=True,
+            blank=True,
             choices=None,
             db_column=None,
             db_index=True,
@@ -400,46 +494,13 @@ class _ModelWithAutoCompleteSearchFieldsABC:
                 for search_field in cls.search_fields()]
 
 
-class _ModelWithUUIDPKAndOptionalUniqueNameAndTimestampsABC(
-        _ModelWithUUIDPKABC, TimeStampedModel):
-    name: CharField = \
-        CharField(
-            verbose_name='(optional) Unique Name',
-            help_text='(optional) Unique Name',
-
-            max_length=MAX_CHAR_FLD_LEN,
-
-            null=True,
-            blank=True,
-            choices=None,
-            db_column=None,
-            db_index=True,
-            db_tablespace=None,
-            default=None,
-            editable=True,
-            # error_messages={},
-            primary_key=False,
-            unique=True,
-            unique_for_date=None,
-            unique_for_month=None,
-            unique_for_year=None,
-            # validators=()
-        )
-
-    class Meta(_ModelWithUUIDPKABC.Meta):
+class _ModelWithUUIDPKAndOptionalUniqueNameABC(
+        _ModelWithOptionalUniqueNameABC, _ModelWithUUIDPKABC):
+    class Meta(_ModelWithOptionalUniqueNameABC.Meta):
         # pylint: disable=too-few-public-methods
         """Metadata."""
 
         abstract: bool = True
-
-        get_latest_by: Union[str, Sequence[str]] = 'modified'
-
-        ordering: Sequence[str] = 'name', '-modified'
-
-    def __str__(self) -> str:
-        return (f'{type(self).__name__} "{self.name}"'
-                if self.name
-                else super().__str__())
 
     @property
     def name_or_uuid(self) -> str:
@@ -455,7 +516,7 @@ class _ModelWithUUIDPKAndOptionalUniqueNameAndTimestampsABC(
 
     @classmethod
     def get_by_name_or_uuid(cls, name_or_uuid: str) \
-            -> _ModelWithUUIDPKAndOptionalUniqueNameAndTimestampsABC:
+            -> _ModelWithUUIDPKAndOptionalUniqueNameABC:
         """Get Object by Name (if applicable) or UUID."""
         try:   # try looking up object by UUID
             _uuid: UUID = UUID(hex=name_or_uuid, version=4)
@@ -464,3 +525,16 @@ class _ModelWithUUIDPKAndOptionalUniqueNameAndTimestampsABC(
         except ValueError:
             # else look up by Name
             return cls.objects.get(name=name_or_uuid)
+
+
+class _ModelWithUUIDPKAndOptionalUniqueNameAndTimestampsABC(
+        _ModelWithUUIDPKAndOptionalUniqueNameABC, TimeStampedModel):
+    class Meta(_ModelWithUUIDPKAndOptionalUniqueNameABC.Meta):
+        # pylint: disable=too-few-public-methods
+        """Metadata."""
+
+        abstract: bool = True
+
+        get_latest_by: Union[str, Sequence[str]] = 'modified'
+
+        ordering: Sequence[str] = 'name', '-modified'
