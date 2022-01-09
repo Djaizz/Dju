@@ -360,6 +360,12 @@ class _ModelWithUniqueNameABC(
 
 
 class _ModelWithSnakeCaseUniqueNameABC(_ModelWithUniqueNameABC):
+    class Meta(_ModelWithUniqueNameABC.Meta):
+        # pylint: disable=too-few-public-methods
+        """Metadata."""
+
+        abstract: bool = True
+
     def save(self, *args, **kwargs):
         self.name: str = snake_case(self.name)
         super().save(*args, **kwargs)
@@ -407,6 +413,12 @@ class _ModelWithOptionalUniqueNameABC(
 
 class _ModelWithOptionalSnakeCaseUniqueNameABC(
         _ModelWithOptionalUniqueNameABC):
+    class Meta(_ModelWithOptionalUniqueNameABC.Meta):
+        # pylint: disable=too-few-public-methods
+        """Metadata."""
+
+        abstract: bool = True
+
     def save(self, *args, **kwargs):
         if self.name:
             self.name: str = snake_case(self.name)
