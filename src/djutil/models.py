@@ -5,8 +5,8 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from sys import version_info
-from typing import Union
-from typing import List   # Py3.9+: use generic types
+from typing import Any, Union
+from typing import Dict, List   # Py3.9+: use generic types
 from uuid import UUID, uuid4
 
 from django.db.models.base import Model
@@ -193,7 +193,8 @@ class _ModelWithObjectsManagerAndDefaultMetaOptionsABC(Model):
         # verbose_name_plural: str  = '...'
 
     def __str__(self) -> str:
-        return f'{type(self).__name__} #{self.pk}'
+        # pylint: disable=no-member
+        return f'{self._meta.verbose_name} #{self.pk}'
 
 
 class _ModelWithIntPKABC(_ModelWithObjectsManagerAndDefaultMetaOptionsABC):
@@ -356,7 +357,8 @@ class _ModelWithUniqueNameABC(
         ordering: Sequence[str] = ('name',)
 
     def __str__(self) -> str:
-        return f'{type(self).__name__} "{self.name}"'
+        # pylint: disable=no-member
+        return f'{self._meta.verbose_name} "{self.name}"'
 
 
 class _ModelWithSnakeCaseUniqueNameABC(_ModelWithUniqueNameABC):
@@ -406,7 +408,8 @@ class _ModelWithOptionalUniqueNameABC(
         ordering: Sequence[str] = ('name',)
 
     def __str__(self) -> str:
-        return (f'{type(self).__name__} "{self.name}"'
+        # pylint: disable=no-member
+        return (f'{self._meta.verbose_name} "{self.name}"'
                 if self.name
                 else super().__str__())
 
@@ -550,3 +553,18 @@ class _ModelWithUUIDPKAndOptionalUniqueNameAndTimestampsABC(
         get_latest_by: Union[str, Sequence[str]] = 'modified'
 
         ordering: Sequence[str] = 'name', '-modified'
+
+
+# stackoverflow.com/questions/927729
+def modify_abstract_model_fields(**kwargs: Dict[str, Any]):
+    """Decorator/Wrapper to modify an abstract model's fields."""
+    def modify(DjangoModelClass):   # noqa: N803
+        # pylint: disable=invalid-name
+        for field_name, property_dict in kwargs.items():
+            for property_name, property_value in property_dict.items():
+                # pylint: disable=protected-access
+                setattr(DjangoModelClass._meta.get_field(field_name),
+                        property_name, property_value)
+        return DjangoModelClass
+
+    return modify
