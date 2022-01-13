@@ -556,8 +556,8 @@ class _ModelWithUUIDPKAndOptionalUniqueNameAndTimestampsABC(
 
 
 # stackoverflow.com/questions/927729
-def modify_abstract_model_fields(**kwargs: Dict[str, Any]):
-    """Decorator/Wrapper to modify an abstract model's fields."""
+def modify_abstract_model_field_attrs(**kwargs: Dict[str, Any]):
+    """Decorator/Wrapper to modify an abstract model's field attributes."""
     def modify(DjangoModelClass):   # noqa: N803
         # pylint: disable=invalid-name
         for field_name, property_dict in kwargs.items():
