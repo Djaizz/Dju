@@ -1,6 +1,6 @@
 [tool.poetry]
 name = 'Dj-Util'
-version = '0.0.0.dev0'
+version = '0.0.0.dev1'
 
 description = 'Django Utilities'
 
@@ -75,7 +75,7 @@ Python = '^3.8'
 
 # Django & related
 # ================
-Django = '^4.0.6'
+Django = '^4.1'
 Django-Autocomplete-Light = '^3.9.4'
 Django-Model-Utils = '^4.2.0'
 
