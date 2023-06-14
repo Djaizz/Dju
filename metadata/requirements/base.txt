@@ -1,3 +1,3 @@
-Django >= 4.2.1
+Django >= 4.2.2
 Django-Autocomplete-Light >= 3.9.7
 Django-Model-Utils >= 4.3.1
