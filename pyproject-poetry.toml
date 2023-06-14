@@ -1,5 +1,5 @@
 [tool.poetry]
-name = 'Dj-Util'
+name = 'Dju'
 version = '0.0.0.dev1'
 
 description = 'Django Utilities'
@@ -15,9 +15,9 @@ maintainers = [
 
 readme = 'README.md'
 
-homepage = 'https://GitHub.com/Django-AI/Dj-Util'
-repository = 'https://GitHub.com/Django-AI/Dj-Util'
-documentation = 'https://Django-AI.GitHub.io/Dj-Util'
+homepage = 'https://GitHub.com/Django-AI/Dju'
+repository = 'https://GitHub.com/Django-AI/Dju'
+documentation = 'https://Django-AI.GitHub.io/Dju'
 
 keywords = [
   'Django',
@@ -81,7 +81,7 @@ Django-Model-Utils = '^4.2.0'
 
 
 [tool.poetry.urls]
-GitHub = 'https://GitHub.com/Django-AI/Dj-Util'
+GitHub = 'https://GitHub.com/Django-AI/Dju'
 
 
 [build-system]

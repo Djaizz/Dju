@@ -8,7 +8,7 @@
 # GENERAL INFO
 # ============
 
-name = 'Dj-Util'
+name = 'Dju'
 
 keywords = [
   'Django',
@@ -58,10 +58,10 @@ dynamic = [
 # ====
 
 [project.urls]
-Homepage = 'https://GitHub.com/Djaizz/Dj-Util'
-Repository = 'https://GitHub.com/Djaizz/Dj-Util'
-GitHub = 'https://GitHub.com/Djaizz/Dj-Util'
-Documentation = 'https://Djaizz.GitHub.io/Dj-Util'
+Homepage = 'https://GitHub.com/Djaizz/Dju'
+Repository = 'https://GitHub.com/Djaizz/Dju'
+GitHub = 'https://GitHub.com/Djaizz/Dju'
+Documentation = 'https://Djaizz.GitHub.io/Dju'
 
 
 # SETUPTOOLS-SPECIFIC CONFIG
