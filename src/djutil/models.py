@@ -6,7 +6,6 @@ from __future__ import annotations
 from abc import abstractmethod
 from sys import version_info
 from typing import Any, Union
-from typing import Dict, List   # Py3.9+: use generic types
 from uuid import UUID, uuid4
 
 from django.db.models.base import Model
@@ -523,7 +522,7 @@ class _ModelWithUUIDPKAndOptionalUniqueNameABC(
         return self.name if self.name else self.uuid
 
     @classproperty
-    def names_or_uuids(cls) -> List[str]:   # noqa: N805
+    def names_or_uuids(cls) -> list[str]:   # noqa: N805
         # pylint: disable=no-self-argument
         """Class's Objects' Names (where applicable) or UUIDs."""
         return [(name if name else uuid)
@@ -556,7 +555,7 @@ class _ModelWithUUIDPKAndOptionalUniqueNameAndTimestampsABC(
 
 
 # stackoverflow.com/questions/927729
-def modify_abstract_model_field_attrs(**kwargs: Dict[str, Any]):
+def modify_abstract_model_field_attrs(**kwargs: dict[str, Any]):
     """Decorator/Wrapper to modify an abstract model's field attributes."""
     def modify(DjangoModelClass):   # noqa: N803
         # pylint: disable=invalid-name
