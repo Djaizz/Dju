@@ -51,6 +51,7 @@ dynamic = [
 
   # entry points / scripts
   'entry-points',
+  'scripts',
 ]
 
 
